@@ -1,44 +1,30 @@
 import wikipediaapi
 startarticle = ''
 endarticle = ''
+wiki_wiki = wikipediaapi.Wikipedia('en')
 
-def merge(g1, g2):
-    for i in g1:
-        yield i
-    for i in g2:
-        yield i
-
-def get_links(gen_of_links):
-    a = set()
-    for link in gen_of_links:
-            a.update(link)
-    return a
-
-def get_all_links_rec(gen_of_links, num, endarticle):
-    s = get_links(gen_of_links)
-    if endarticle in s:
-        print("finished " + num)
-    else:
-        num += 1
-        new_s = set()
-        bool = True
-        for article in s:
-            if bool:
-                olinks = article.links
-                bool = False
-            else:
-                plinks = article.links
-                links = merge(olinks, plinks)
-        get_all_links_rec(olinks, num)
+def get_all_links_rec(pages, num, endarticle):
+    new_pages = []
+    for page in pages:
+        for i in page.links:
+            new_pages += wiki_wiki.page(i)
+        if endarticle == page:
+            print("finished in " + num + " steps")
+    get_all_links_rec(new_pages, num+1, endarticle)
+    
+def get_links(page):
+    lings = page.links
+    for i in range (len(lings)):
+        print(list(lings.keys())[i])
+    
 
 def main():
     startarticle = input("enter start article: ")
     endarticle = input("Enter end article: ")
-    print("")
-    links_gen = weblinkchecker.weblinks_from_text(startarticle)
-    print(links_gen)
-    print(type(links_gen))
-    get_all_links_rec(links_gen, 1)
+    page_py = wiki_wiki.page(startarticle)
+    get_links(page_py)
+    exit(0)
+    get_all_links_rec([page_py], 0 ,endarticle)
     
 if __name__ == '__main__':
     main()
