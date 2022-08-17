@@ -1,4 +1,5 @@
-import wikipediaapi
+import pywikibot
+import weblinkchecker
 startarticle = ''
 endarticle = ''
 
@@ -14,7 +15,7 @@ def get_links(gen_of_links):
             a.update(link)
     return a
 
-def get_all_links_rec(gen_of_links, num):
+def get_all_links_rec(gen_of_links, num, endarticle):
     s = get_links(gen_of_links)
     if endarticle in s:
         print("finished " + num)
@@ -35,10 +36,10 @@ def main():
     startarticle = input("enter start article: ")
     endarticle = input("Enter end article: ")
     print("")
-    tlinks = startarticle.links
-    print(tlinks)
-    print(type(tlinks))
-    get_all_links_rec(tlinks, 1)
+    links_gen = weblinkchecker.weblinks_from_text(startarticle)
+    print(links_gen)
+    print(type(links_gen))
+    get_all_links_rec(links_gen, 1)
     
 if __name__ == '__main__':
     main()
