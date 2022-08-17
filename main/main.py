@@ -17,6 +17,7 @@ def get_links(page):
     for i in range (len(lings)):
         print(list(lings.keys())[i])
     
+    
 
 def main():
     startarticle = input("enter start article: ")
