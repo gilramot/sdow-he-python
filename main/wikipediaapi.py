@@ -911,7 +911,6 @@ class WikipediaPage(object):
         "preload": ["info"],
         "displaytitle": ["info"]
     }
-
     def __init__(
             self,
             wiki: Wikipedia,

@@ -1,5 +1,4 @@
-import pywikibot
-import weblinkchecker
+import wikipediaapi
 startarticle = ''
 endarticle = ''
 
