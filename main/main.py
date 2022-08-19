@@ -10,7 +10,8 @@ def get_all_links_rec(pages, num, endarticle):
         wiki_page = wiki_wiki.page(page)
         new_links_pages = get_links(wiki_page)
         if endarticle == page:
-            return num
+            print(num)
+            return 0
         new_pages.extend(new_links_pages)
     get_all_links_rec(new_pages, num+1, endarticle)
     
@@ -29,6 +30,6 @@ def get_links(page):
 def main():
     startarticle = input("enter start article: ")
     endarticle = input("Enter end article: ")
-    print(get_all_links_rec([startarticle], 0 ,endarticle))
+    get_all_links_rec([startarticle], 0 ,endarticle)
 if __name__ == '__main__':
     main()
